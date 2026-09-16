@@ -1,0 +1,236 @@
+:root {
+  color-scheme: light dark;
+
+  --surface: #ffffff;
+  --surface-muted: #f4f6fa;
+  --background: #eef1f6;
+  --border: #d7dce5;
+  --text: #16202e;
+  --text-muted: #5b6878;
+  --accent: #1f6feb;
+  --accent-contrast: #ffffff;
+  --danger: #b42318;
+  --success: #1a7f4b;
+  --radius: 12px;
+  --shadow: 0 10px 30px rgba(16, 24, 40, 0.08);
+  --font: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface: #161b22;
+    --surface-muted: #1c232c;
+    --background: #0d1117;
+    --border: #2b333d;
+    --text: #e6edf3;
+    --text-muted: #9aa7b5;
+    --accent: #4c8dff;
+    --accent-contrast: #08111f;
+    --danger: #ff7b72;
+    --success: #56d364;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: var(--background);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3rem 1rem 1.5rem;
+  gap: 2rem;
+}
+
+.app__main {
+  width: 100%;
+  max-width: 34rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 2rem;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.75rem;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  margin: 0.25rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.subtitle a {
+  color: var(--accent);
+}
+
+.cep-form {
+  margin-top: 1.75rem;
+}
+
+.cep-form__label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.cep-form__row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.cep-form__input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.7rem 0.85rem;
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.cep-form__input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.cep-form__input[aria-invalid="true"] {
+  border-color: var(--danger);
+}
+
+.cep-form__submit {
+  padding: 0.7rem 1.25rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  font-weight: 600;
+  color: var(--accent-contrast);
+  background: var(--accent);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.cep-form__submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cep-form__hint {
+  margin: 0.5rem 0 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.error-message {
+  margin: 1.5rem 0 0;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--danger);
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 10%, transparent);
+  font-size: 0.9rem;
+}
+
+.address-card {
+  margin-top: 1.75rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.25rem;
+}
+
+.address-card__title {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+}
+
+.address-card__list {
+  margin: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.address-card__item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.address-card__item dt {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.address-card__item dd {
+  margin: 0;
+  font-weight: 600;
+  text-align: right;
+}
+
+.app__footer {
+  width: 100%;
+  max-width: 34rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.health {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.health__dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+.health__dot--up {
+  background: var(--success);
+}
+
+.health__dot--down {
+  background: var(--danger);
+}
+
+.dev-terminal__toggle {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 41;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}

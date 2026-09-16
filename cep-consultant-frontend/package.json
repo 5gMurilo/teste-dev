@@ -1,0 +1,40 @@
+{
+  "name": "cep-consultant-frontend",
+  "version": "0.0.1",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "scripts": {
+    "dev": "NODE_ENV=development tsx watch server/index.ts",
+    "build": "pnpm run build:client && pnpm run build:server && pnpm run build:node",
+    "build:client": "vite build --outDir dist/client",
+    "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
+    "build:node": "vite build --ssr server/index.ts --outDir dist/server --emptyOutDir false",
+    "start": "NODE_ENV=production node dist/server/index.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "biome check server/ src/ tests/",
+    "format": "biome format --write \"server/**/*.ts\" \"src/**/*.ts\" \"src/**/*.tsx\" \"tests/**/*.ts\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.19.5",
+    "hono": "^4.10.3",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild"]
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.12",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "@vitejs/plugin-react": "^5.1.0",
+    "tsx": "^4.20.6",
+    "typescript": "^6.0.2",
+    "vite": "^7.1.12",
+    "vitest": "^4.1.2"
+  }
+}
