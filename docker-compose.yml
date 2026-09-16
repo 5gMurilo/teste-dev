@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: redis-cep-consultant
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+  api:
+    build: ./cep-consultant-api
+    container_name: cep-consultant-api
+    depends_on:
+      redis:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: 8000
+      REDIS_URL: redis://redis:6379
+      BRASIL_API_PROVIDER_BASE_URL: ${BRASIL_API_PROVIDER_BASE_URL:-https://brasilapi.com.br/api/cep/v1/}
+      VIA_CEP_PROVIDER_BASE_URL: ${VIA_CEP_PROVIDER_BASE_URL:-https://viacep.com.br/ws/}
+      DEV_TOOLS_ENABLED: ${DEV_TOOLS_ENABLED:-false}
+
+  frontend:
+    build: ./cep-consultant-frontend
+    container_name: cep-consultant-frontend
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: 3000
+      HOST: 0.0.0.0
+      API_BASE_URL: http://api:8000/api/v1
+      DEV_TOOLS_ENABLED: ${DEV_TOOLS_ENABLED:-false}
+
+volumes:
+  redis-data:
