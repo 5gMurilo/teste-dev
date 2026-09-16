@@ -127,12 +127,12 @@ Isso sobe:
 
 - **Redis** na porta `6379`
 - **API** na porta `8000`
-- **Frontend** na porta `5173`
+- **Frontend** na porta `3000`
 
 ```bash
 # Verificar health dos serviços
 curl http://localhost:8000/api/v1/health
-curl http://localhost:5173
+curl http://localhost:3000
 ```
 
 ---
@@ -201,23 +201,6 @@ pnpm test
     ├── Dockerfile               # Multi-stage build
     └── .env.example             # Variáveis de ambiente
 ```
-
----
-
-## Decisões de arquitetura
-
-- **Same-origin ou nada** — O navegador nunca conhece o endereço da API. O
-  servidor SSR atua como proxy reverso.
-- **Gate opt-in explícito** — O drawer de logs de desenvolvimento só existe
-  quando `DEV_TOOLS_ENABLED === 'true' && NODE_ENV !== 'production'`. Ausência =
-  desligado.
-- **Polling em vez de SSE** — Para o volume de tráfego de uma ferramenta dev
-  acionada por clique, polling (~1s) é mais simples e não sofre com stall
-  silencioso de conexões.
-- **Fail-closed** — Ausência de configuração significa recurso desligado, em
-  todas as camadas.
-
----
 
 ## Autor
 
